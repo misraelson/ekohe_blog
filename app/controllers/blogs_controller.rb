@@ -23,7 +23,7 @@ class BlogsController < ApplicationController
   end
 
   def edit
-    if @blog.user.id == current_user.id || logged_in?(:admin)
+    if blog_belongs_to_user_or_admin
       render :edit
     else
       redirect_to @blog, notice: 'Permission Denied'
@@ -44,7 +44,7 @@ class BlogsController < ApplicationController
   end
 
   def update
-    if @blog.user.id == current_user.id || logged_in?(:admin)
+    if blog_belongs_to_user_or_admin
       respond_to do |format|
         if @blog.update(blog_params)
           format.html { redirect_to @blog, notice: 'Blog was successfully updated.' }
@@ -60,7 +60,7 @@ class BlogsController < ApplicationController
   end
 
   def destroy
-    if @blog.user.id == current_user.id || logged_in?(:admin)
+    if blog_belongs_to_user_or_admin
       @blog.destroy
       respond_to do |format|
         format.html { redirect_to blogs_url, notice: 'Blog was successfully destroyed.' }
@@ -89,5 +89,9 @@ class BlogsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
       params.require(:blog).permit(:title, :body, :status)
+    end
+
+    def blog_belongs_to_user_or_admin
+      @blog.user.id == current_user.id || logged_in?(:admin)
     end
 end

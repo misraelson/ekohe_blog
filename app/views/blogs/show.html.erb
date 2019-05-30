@@ -13,11 +13,13 @@
   <%= @blog.body %>
 </p>
 
-<% if logged_in?(:author, :admin) %>
+<% if @blog.user.id == current_user.id || logged_in?(:admin) %>
   <p>
-    <strong>Status:</strong>
+    <strong>Article Status:</strong>
     <%= @blog.status %>
   </p>
+  <%= link_to "Toggle Status", toggle_status_blog_path(@blog), class: (@blog.status == "draft" ? 'btn btn-secondary' : 'btn btn-primary') %> /
 	<%= link_to 'Edit', edit_blog_path(@blog) %> |
+  <%= link_to 'Delete Article', @blog, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
 <% end %>
-<%= link_to 'Back', blogs_path %>
+<%= link_to 'Articles Index', blogs_path %>

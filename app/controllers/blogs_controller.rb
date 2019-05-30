@@ -65,7 +65,7 @@ class BlogsController < ApplicationController
     elsif @blog.published?
       @blog.draft!
     end
-    redirect_to blogs_url, notice: 'post status has been updated'
+    redirect_to blogs_url, notice: 'article status has been updated'
   end
 
   private

@@ -5,7 +5,7 @@ class Blog < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
   # basic validations
-  validates_presence_of :title, :body
+  validates_presence_of :title, :body, :status
   # added User foreign key on blogs, inforces that relationship
   belongs_to :user
 end

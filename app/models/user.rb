@@ -21,6 +21,7 @@ class User < ApplicationRecord
 
   def set_role
     self.roles = 'author'
+    self.save
   end
   
   def first_name

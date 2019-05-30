@@ -2,7 +2,6 @@
   <% if blog.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
-
       <ul>
       <% blog.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -20,8 +19,16 @@
     <%= form.label :body %>
     <%= form.text_area :body %>
   </div>
+  
+  <div>
+    <%= form.radio_button(:status, "draft") %>
+    <%= form.label(:status, "Draft") %>
+    
+    <%= form.radio_button(:status, "published") %>
+    <%= form.label(:status, "Published") %>
+  </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Update Article"%>
   </div>
 <% end %>

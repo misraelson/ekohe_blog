@@ -1,14 +1,14 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy, :toggle_status]
 
-  access all: [:show, :index], user: :all
+  access all: [:show, :index], user: {except: [:edit, :update, :destroy]}, author: :all
 
   def index
     @blogs = Blog.all
   end
 
   def show
-    if logged_in?(:user) || @blog.published?
+    if @blog.published?
     @blog = Blog.friendly.find(params[:id])
 
     @page_title = @blog.title
@@ -27,6 +27,7 @@ class BlogsController < ApplicationController
 
   def create
     @blog = Blog.new(blog_params)
+    @blog.user = current_user
 
     respond_to do |format|
       if @blog.save
@@ -76,6 +77,6 @@ class BlogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
-      params.require(:blog).permit(:title, :body)
+      params.require(:blog).permit(:title, :body, :status)
     end
 end

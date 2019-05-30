@@ -1,18 +1,18 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy, :toggle_status]
 
-  access all: [:show, :index], user: {except: [:edit, :update, :destroy]}, author: :all
+  access [:all, :user] => [:index, :show], [:author, :admin] => [:index, :show, :new, :create, :edit, :update, :destroy, :toggle_status]
 
   def index
     @blogs = Blog.all
   end
 
   def show
-    if @blog.published?
-    @blog = Blog.friendly.find(params[:id])
+    if @blog.published? || @blog.user.id == current_user.id
+      @blog = Blog.friendly.find(params[:id])
 
-    @page_title = @blog.title
-    @seo_keywords = @blog.title
+      @page_title = @blog.title
+      @seo_keywords = @blog.title
     else
       redirect_to blogs_path, notice: "You are not allowed to see this, so sad"
     end
@@ -23,12 +23,15 @@ class BlogsController < ApplicationController
   end
 
   def edit
+    if @blog.user.id == current_user.id || logged_in?(:admin)
+      render :edit
+    else
+      redirect_to @blog, notice: 'Permission Denied'
+    end
   end
 
   def create
-    @blog = Blog.new(blog_params)
-    @blog.user = current_user
-
+    @blog = current_user.blogs.build(blog_params)
     respond_to do |format|
       if @blog.save
         format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
@@ -41,22 +44,30 @@ class BlogsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @blog.update(blog_params)
-        format.html { redirect_to @blog, notice: 'Blog was successfully updated.' }
-        format.json { render :show, status: :ok, location: @blog }
-      else
-        format.html { render :edit }
-        format.json { render json: @blog.errors, status: :unprocessable_entity }
+    if @blog.user.id == current_user.id || logged_in?(:admin)
+      respond_to do |format|
+        if @blog.update(blog_params)
+          format.html { redirect_to @blog, notice: 'Blog was successfully updated.' }
+          format.json { render :show, status: :ok, location: @blog }
+        else
+          format.html { render :edit }
+          format.json { render json: @blog.errors, status: :unprocessable_entity }
+        end
       end
+    else
+
     end
   end
 
   def destroy
-    @blog.destroy
-    respond_to do |format|
-      format.html { redirect_to blogs_url, notice: 'Blog was successfully destroyed.' }
-      format.json { head :no_content }
+    if @blog.user.id == current_user.id || logged_in?(:admin)
+      @blog.destroy
+      respond_to do |format|
+        format.html { redirect_to blogs_url, notice: 'Blog was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to blogs_path, notice: 'Permission Denied'
     end
   end
 

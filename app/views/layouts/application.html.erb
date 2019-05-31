@@ -11,20 +11,20 @@
   </head>
 
   <body>
-    <div class="Main">
-      <header>
+    <div class="main">
+      <header class="navbar">
         <%= link_to "Home", root_path, class: "btn" %>
         <% if current_user %>
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn" %>
           <%= link_to 'Write An Article', new_blog_path, class: "btn" %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn" %>
         <% else  %>
           <%= link_to "Register", new_user_registration_path, class: "btn" %>
           <%= link_to "Login", new_user_session_path, class: "btn" %>
         <% end  %>
       </header>
-      <%= yield %>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
+      <%= yield %>
     </div>
   </body>
 </html>

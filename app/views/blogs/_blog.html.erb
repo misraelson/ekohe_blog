@@ -1,18 +1,16 @@
-<div class="blog-post">
-  <h2 class="heading-secondary">Title: <%= link_to blog.title.upcase, blog %></h2>
-  <h3 class="heading-tertiary u-margin-bottom-small">Published <%= distance_of_time_in_words(blog.created_at, Time.now) %> ago</h3>
-  <p class="paragraph">
-    <%= blog.body %>
+<h2 class="heading-secondary">Title: <%= link_to blog.title.upcase, blog, class: "btn-text" %></h2>
+<h3 class="heading-tertiary u-margin-bottom-small">Published <%= distance_of_time_in_words(blog.created_at, Time.now) %> ago</h3>
+<p class="paragraph">
+  <%= blog.body %>
+</p>
+<% if blog.user.id == current_user.id || logged_in?(:admin) %>
+  <p class="blog-post-meta">
+    *If you are the author of this article, only you will see the following
+    <br>
+    <strong>Article Status:</strong>
+    <%= blog.status.upcase %>
+    <%= link_to "Toggle Status", toggle_status_blog_path(blog), class: (blog.status == "draft" ? 'btn' : 'btn') %> /
+    <%= link_to 'Edit', edit_blog_path(blog), class: "btn" %> /
+    <%= link_to 'Delete Article', blog, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" %>
   </p>
-  <% if blog.user.id == current_user.id || logged_in?(:admin) %>
-    <p class="blog-post-meta">
-      *If you are the author of this article, only you will see the following
-      <br>
-      <strong>Article Status:</strong>
-      <%= blog.status.upcase %>
-      <%= link_to "Toggle Status", toggle_status_blog_path(blog), class: (blog.status == "draft" ? 'btn btn-secondary' : 'btn btn-primary') %> /
-      <%= link_to 'Edit', edit_blog_path(blog), class: "btn btn-success" %> /
-      <%= link_to 'Delete Article', blog, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-    </p>
-  <% end  %>
-</div>
+<% end  %>

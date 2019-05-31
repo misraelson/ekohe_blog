@@ -1,7 +1,7 @@
 <div class="blog-post">
-  <h2 class="blog-post-title">Title: <%= link_to blog.title.upcase, blog %></h2>
-  <p class="blog-post-meta">Published <%= distance_of_time_in_words(blog.created_at, Time.now) %> ago</p>
-  <p>
+  <h2 class="heading-secondary">Title: <%= link_to blog.title.upcase, blog %></h2>
+  <h3 class="heading-tertiary u-margin-bottom-small">Published <%= distance_of_time_in_words(blog.created_at, Time.now) %> ago</h3>
+  <p class="paragraph">
     <%= blog.body %>
   </p>
   <% if blog.user.id == current_user.id || logged_in?(:admin) %>

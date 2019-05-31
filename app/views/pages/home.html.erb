@@ -1,5 +1,15 @@
-<main role="main" class="inner cover">
-  <div id="text-highlight">
-    <h1 class="cover-heading"><span class="highlight-name">Interesting Articles</span></h1>
+<header class="header">
+  <div class="header__text-box">
+    <h1 class="heading-primary">
+      <span class="heading-primary--main">amazing articles</span>
+      <span class="heading-primary--sub">your pen is mightier than...</span>
+    </h1>
   </div>
+</header>
+<main>
+  <section class="section-about">
+   <div class="u-center-text u-margin-bottom-big">
+      <%= render @blogs %>
+    </div>
+  </section>
 </main>

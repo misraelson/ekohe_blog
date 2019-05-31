@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>EkoheBlog</title>
+    <title>Ekohe Blog Test</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <% if current_user %>
- 	    <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-    <% else  %>
- 	    <%= link_to "Register", new_user_registration_path %>
- 	    <%= link_to "Login", new_user_session_path %>
-    <% end  %>
-    <%= yield %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="Main">
+      <header>
+        <%= link_to "Home", root_path, class: "btn" %>
+        <% if current_user %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn" %>
+          <%= link_to 'Write An Article', new_blog_path, class: "btn" %>
+        <% else  %>
+          <%= link_to "Register", new_user_registration_path, class: "btn" %>
+          <%= link_to "Login", new_user_session_path, class: "btn" %>
+        <% end  %>
+      </header>
+      <%= yield %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
   </body>
 </html>

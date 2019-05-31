@@ -1,6 +1,12 @@
-<h1>Editing Blog</h1>
-
-<%= render 'form', blog: @blog %>
-
-<%= link_to 'Article Show Page', @blog %> |
-<%= link_to 'Articles Index', blogs_path %>
+<header class="header">
+  <div class="header__text-box">
+    <div class="u-center-text">
+      <h1 class="heading-primary">
+        <span class="heading-primary--sub">Edit Article</span>
+      </h1>
+      <%= render 'form', blog: @blog %>
+    </div>
+  </div>
+</header>
+<%= link_to 'Article Show Page', @blog, class: 'btn' %> |
+<%= link_to 'Articles Index', blogs_path, class: 'btn' %>

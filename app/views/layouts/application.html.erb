@@ -14,6 +14,7 @@
     <div class="main">
       <header class="navbar">
         <%= link_to "Home", root_path, class: "btn" %>
+        <%= link_to 'Articles Index', blogs_path, class: "btn" %>
         <% if current_user %>
           <%= link_to 'Write An Article', new_blog_path, class: "btn" %>
           <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn" %>

@@ -1,21 +1,16 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy, :toggle_status]
 
-  access [:all, :user] => [:index, :show], [:author, :admin] => [:index, :show, :new, :create, :edit, :update, :destroy, :toggle_status]
+  access [:all] => [:index, :show], [:author, :admin] => [:index, :show, :new, :create, :edit, :update, :destroy, :toggle_status]
 
   def index
     @blogs = Blog.all
   end
 
   def show
-    if @blog.published? || @blog.user.id == current_user.id
-      @blog = Blog.friendly.find(params[:id])
-
-      @page_title = @blog.title
-      @seo_keywords = @blog.title
-    else
-      redirect_to blogs_path, notice: "You are not allowed to see this, so sad"
-    end
+    @blog = Blog.friendly.find(params[:id])
+    @page_title = @blog.title
+    @seo_keywords = @blog.title
   end
 
   def new
@@ -26,7 +21,7 @@ class BlogsController < ApplicationController
     if blog_belongs_to_user_or_admin
       render :edit
     else
-      redirect_to @blog, notice: 'Permission Denied'
+      redirect_to @blog, notice: 'You are not allowed to do this, so sad'
     end
   end
 

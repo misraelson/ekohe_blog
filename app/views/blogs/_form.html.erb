@@ -12,15 +12,15 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "input" %>
   </div>
 
   <div class="field">
     <%= form.label :body %>
-    <%= form.text_area :body %>
+    <%= form.text_area :body, class: "input input--body" %>
   </div>
   
-  <div>
+  <div class="field field--radio">
     <%= form.radio_button(:status, "draft") %>
     <%= form.label(:status, "Draft") %>
     
@@ -29,6 +29,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit "Create Article"%>
+    <%= form.submit "Create Article", class: "btn" %>
   </div>
 <% end %>

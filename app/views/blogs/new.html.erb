@@ -1,7 +1,10 @@
-<div>
-  <h1>Write a New Article</h1>
-
-  <%= render 'form', blog: @blog %>
-
-  <%= link_to 'Back', blogs_path %>
+<header class="header">
+  <div class="header__text-box">
+    <div class="u-center-text">
+      <h1 class="heading-primary">
+        <span class="heading-primary--sub">Write a New Article</span>
+      </h1>
+      <%= render 'form', blog: @blog %>
+    </div>
+  </div>
 </div>

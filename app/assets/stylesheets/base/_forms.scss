@@ -3,20 +3,23 @@ form {
   flex-direction: column;
 
   .field {
-    padding: 1rem;
+    padding: .5rem;
     display: flex;
+    flex-direction: row;
+    align-items: baseline;
 
     label {
       font-size: $default-font-size;
       font-weight: 700;
       text-transform: uppercase;
       padding-right: 1rem;
+      padding-left: 1rem;
     }
 
     .input {
       flex-grow: 1;
-      border-radius: 1rem;
       padding: 1rem;
+      font-size: 1.5rem;
 
       &--body {
         height: 20rem;
@@ -39,7 +42,7 @@ form {
   .btn {
     text-transform: uppercase;
     text-decoration: none;
-    padding: 1.5rem 4rem;
+    padding: 1rem 4rem;
     display: inline-block;
     border-radius: 10rem;
     transition: all .2s;
@@ -47,5 +50,14 @@ form {
     font-size: $default-font-size;
     color: #777;
     margin-top: 1rem;
+  }
+}
+
+.search {
+  display: inline-block;
+
+  #search {
+    padding: .5rem;
+    font-size: 1.5rem;
   }
 }

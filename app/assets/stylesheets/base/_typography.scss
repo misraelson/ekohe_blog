@@ -37,6 +37,7 @@ body {
   text-transform: uppercase;
   font-weight: 700;
   padding-bottom: 2rem;
+  width: 80%;
   display: inline-block;
   background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
   -webkit-background-clip: text;
@@ -54,8 +55,8 @@ body {
 
 .paragraph {
   font-size: 1.6rem;
-  padding-left: 20rem;
-  padding-right: 20rem;
+  padding-left: 15%;
+  padding-right: 15%;
 
   // selects everything but the last child
   &:not(:last-child) {

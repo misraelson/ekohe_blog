@@ -4,11 +4,12 @@ class BlogsController < ApplicationController
   access [:all] => [:index, :show], [:author, :admin] => [:index, :show, :new, :create, :edit, :update, :destroy, :toggle_status]
 
   def index
-    @blogs = Blog.all
+    @blogs = Blog.all.order(created_at: :desc)
+    @blogs = @blogs.search(params[:search]) unless params[:search].blank?
+    @page_title = "Amazing Articles"
   end
 
   def show
-    @blog = Blog.friendly.find(params[:id])
     @page_title = @blog.title
     @seo_keywords = @blog.title
   end

@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   devise_for :users
   
   resources :blogs do
+    collection do
+      post :search
+    end
     member do
       get :toggle_status
     end

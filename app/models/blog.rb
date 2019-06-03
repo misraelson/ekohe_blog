@@ -12,8 +12,6 @@ class Blog < ApplicationRecord
 
   validates :body, length: {minimum: 5}
 
-  scope :published, -> { where(status: 1) }
-
   def self.search(search_term)
     where(["title ILIKE ? OR body ILIKE ?", "%#{search_term}%", "%#{search_term}%"])
   end

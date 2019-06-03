@@ -10,8 +10,8 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @page_title = @blog.title
-    @seo_keywords = @blog.title
+      @page_title = @blog.title
+      @seo_keywords = @blog.title
   end
 
   def new
@@ -80,6 +80,8 @@ class BlogsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_blog
       @blog = Blog.friendly.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        render 'not_found'
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

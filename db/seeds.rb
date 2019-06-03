@@ -16,7 +16,7 @@ user = User.create!(
 20.times do |index|
   Blog.create!(
     title: Faker::Company.bs,
-    body: Faker::StarWars.quote,
+    body: Faker::Movies::StarWars.quote,
     status: rand(2),
     user_id: user.id,
   )

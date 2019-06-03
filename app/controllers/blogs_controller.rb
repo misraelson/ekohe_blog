@@ -10,8 +10,8 @@ class BlogsController < ApplicationController
   end
 
   def show
-      @page_title = @blog.title
-      @seo_keywords = @blog.title
+    @page_title = @blog.title
+    @seo_keywords = @blog.title
   end
 
   def new

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Blogs' do
-  describe 'blog create' do
+  describe 'CREATE' do
     let!(:user1) { User.create(id: 1, name: "Will Smith", email: "will@gmail.com", password: "independence", password_confirmation: "independence") }
     context 'user not signed in' do
       it 'should NOT create the blog' do
@@ -23,7 +23,22 @@ describe 'Blogs' do
       end
     end
   end
-  describe 'show' do
+    describe 'EDIT' do
+      let!(:user1) { User.create(id: 1, name: "Will Smith", email: "will@gmail.com", password: "independence") }
+      let(:blog) { Blog.create(title: "Pattern matching data enhancement", body: "Our new approach to data predictions yields 80% exact", status: "draft", user_id: user1.id) }
+      it 'should edit the blog' do
+        sign_in user1
+        put "/blogs/#{blog.slug}", params: {blog: {title: "NEW TITLE", body: "BETTER BODY", status: "published", user_id: user1.id}}
+        expect(response.status).to eq 302
+        expect(response).to redirect_to(blog_url(Blog.last.slug))
+        expect(Blog.count).to eq 1
+        expect_attributes Blog.last,
+          title: "NEW TITLE",
+          body: "BETTER BODY",
+          status: "published"
+      end
+  end
+  describe 'SHOW' do
     let!(:user1) { User.create(id: 1, name: "Will Smith", email: "will@gmail.com", password: "independence") }
     let(:blog) { Blog.create(title: "Pattern matching data enhancement", body: "Our new approach to data predictions yields 80% exact", status: 1, user_id: user1.id) }
     context 'invalid slug' do
@@ -42,7 +57,7 @@ describe 'Blogs' do
       end
     end
   end
-  describe 'toggle status' do
+  describe 'TOGGLE STATUS' do
     let!(:user1) { User.create(id: 1, name: "Will Smith", email: "will@gmail.com", password: "independence", password_confirmation: "independence") }
     let(:blog) { Blog.create(title: "Pattern matching data enhancement", body: "Our new approach to data", status: "draft", user_id: user1.id) }
     it 'should toggle blog status' do

@@ -1,10 +1,15 @@
 # README
 
-TO START RUN 
+## TO START RUN 
 => rails db:create db:migrate db:seed
 => rails s
 
-Things you may want to cover:
+### TO LOGIN
+=> email: will@gmail.com
+=> password: independence
+
+### TO RUN TESTS
+=> rspec
 
 * Ruby version 
 => 2.5.0
@@ -15,8 +20,3 @@ Things you may want to cover:
 * Configuration
 
 * Database => PostgreSQL
-
-* How to run the test suite
-=> rspec
-
-* Services (job queues, cache servers, search engines, etc.)
